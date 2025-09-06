@@ -9,8 +9,8 @@ load_dotenv()
 
 embeddings = OllamaEmbeddings(model="llama3.2:latest")
 
-url ="https://9731d9ce-cbf4-4495-b840-9b220a8cd953.us-west-1-0.aws.cloud.qdrant.io:6333"
-api_key =os.getenv("QDRANT_API_KEY")
+url = os.getenv("QDRANT_URL", "https://9731d9ce-cbf4-4495-b840-9b220a8cd953.us-west-1-0.aws.cloud.qdrant.io:6333")
+api_key = os.getenv("QDRANT_API_KEY")
 
 question = input("Enter your question: ")
 

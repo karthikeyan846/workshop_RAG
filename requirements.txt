@@ -1,0 +1,6 @@
+streamlit>=1.49.1
+langchain-community
+langchain-ollama
+langchain-qdrant
+python-dotenv
+litellm
