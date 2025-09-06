@@ -1,18 +1,31 @@
 from langchain_community.document_loaders import PyPDFLoader
-# import os
+from langchain_ollama import OllamaEmbeddings
+from langchain_qdrant import QdrantVectorStore
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 data_folder = "./data/eng.pdf"
-
 loader = PyPDFLoader(data_folder)
-data = loader.load_and_split()
+docs = loader.load_and_split()
 
-# print(docs[0])
 
-# from qdrant_client import QdrantClient
 
-# qdrant_client = QdrantClient(
-#     url="https://9731d9ce-cbf4-4495-b840-9b220a8cd953.us-west-1-0.aws.cloud.qdrant.io:6333", 
-#     api_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.QFclDuzPWVT9SlZ3V1nANM2FfeCEm-Vn9aMzCdgdrfQ",
-# )
+embeddings = OllamaEmbeddings(model="llama3.2:latest")
+url = "https://9731d9ce-cbf4-4495-b840-9b220a8cd953.us-west-1-0.aws.cloud.qdrant.io:6333"
+api_key = os.getenv("QDRANT_API_KEY")
+print(url, api_key)
 
-# print(qdrant_client.get_collections())
+
+qdrant = QdrantVectorStore.from_documents(
+    docs,
+    embeddings,
+    url=url,
+    prefer_grpc=True,
+    api_key=api_key,
+    collection_name="Motor_Act",
+)
+
+print("Uploaded to Qdrant")
