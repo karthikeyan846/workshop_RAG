@@ -2,12 +2,12 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from dotenv import load_dotenv
 import os
+from response import completion_llm
 
 load_dotenv()
 
-# from llm import *
 
-embeddings = OllamaEmbeddings(model="llama3.2:1b")
+embeddings = OllamaEmbeddings(model="llama3.2:latest")
 
 url ="https://9731d9ce-cbf4-4495-b840-9b220a8cd953.us-west-1-0.aws.cloud.qdrant.io:6333"
 api_key =os.getenv("QDRANT_API_KEY")
@@ -25,7 +25,7 @@ response =  qdrant.similarity_search(
     query=question,
     k=5)
 
-print(response)
+# print(response)
 # for score in response:
 #     print(  score)
 
@@ -36,4 +36,4 @@ context: {response}
 Only return the summary based on the provided content.
 """
 
-# print(completion_llm(prompt))
+completion_llm(prompt)
