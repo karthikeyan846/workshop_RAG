@@ -1,8 +1,11 @@
 from langchain_community.document_loaders import PyPDFLoader
-import os
+# import os
 
-data_folder = "./data"
-pdf_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.lower().endswith(".pdf")]
-print(pdf_files)
+data_folder = "C:/Users/karth/OneDrive/Desktop/NLP/workshop_RAG/data/eng.pdf"
 
-# loaders = [PyPDFLoader(pdf_file) for pdf_file in pdf_files]
+loader = PyPDFLoader(data_folder)
+docs = loader.load()
+
+# print(docs[0])
+
+
